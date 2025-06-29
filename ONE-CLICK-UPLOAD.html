@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>آپلود آسان به گیت‌هاب - Spectrum Studio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        color: #333;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        color: #666;
+        font-size: 1.1rem;
+      }
+
+      .step {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-left: 5px solid #667eea;
+      }
+
+      .step h3 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+      }
+
+      .step ol {
+        padding-right: 20px;
+        color: #555;
+        line-height: 1.8;
+      }
+
+      .step li {
+        margin-bottom: 10px;
+      }
+
+      .highlight {
+        background: #e3f2fd;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 15px 0;
+        border: 2px solid #2196f3;
+      }
+
+      .button {
+        display: inline-block;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: transform 0.3s ease;
+        margin: 10px 5px;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .warning {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        color: #856404;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 15px 0;
+      }
+
+      .success {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        color: #155724;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 15px 0;
+      }
+
+      .file-list {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 15px 0;
+        font-family: monospace;
+        font-size: 0.9rem;
+      }
+
+      .file-list ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .file-list li {
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .file-list li:last-child {
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🚀 آپلود آسان</h1>
+        <p>Spectrum Studio Website</p>
+      </div>
+
+      <div class="step">
+        <h3>مرحله 1: ایجاد ریپازیتوری</h3>
+        <ol>
+          <li>
+            به
+            <a href="https://github.com" target="_blank" class="button"
+              >GitHub.com</a
+            >
+            برو
+          </li>
+          <li>روی "New repository" کلیک کن</li>
+          <li>نام: <strong>spectrum-studio</strong></li>
+          <li>توضیحات: <strong>Modern architecture studio website</strong></li>
+          <li>Public را انتخاب کن</li>
+          <li><strong>مهم:</strong> گزینه "Add a README file" را تیک نزن</li>
+          <li>روی "Create repository" کلیک کن</li>
+        </ol>
+      </div>
+
+      <div class="step">
+        <h3>مرحله 2: آپلود فایل‌ها</h3>
+        <ol>
+          <li>در صفحه جدید، روی "uploading an existing file" کلیک کن</li>
+          <li>همه فایل‌های زیر را انتخاب کن:</li>
+        </ol>
+
+        <div class="file-list">
+          <ul>
+            <li>📁 src/ (کل پوشه)</li>
+            <li>📄 README.md</li>
+            <li>📄 LICENSE</li>
+            <li>📄 .gitignore</li>
+            <li>📄 DEPLOYMENT.md</li>
+            <li>📄 QUICK-START.md</li>
+            <li>📄 UPLOAD-TO-GITHUB.md</li>
+            <li>📄 GITHUB-SETUP.bat</li>
+            <li>📄 AUTO-UPLOAD.bat</li>
+            <li>📄 ONE-CLICK-UPLOAD.html</li>
+          </ul>
+        </div>
+
+        <ol start="3">
+          <li>
+            پیام کامیت:
+            <strong>Initial commit: Modern architecture studio website</strong>
+          </li>
+          <li>روی "Commit changes" کلیک کن</li>
+        </ol>
+      </div>
+
+      <div class="step">
+        <h3>مرحله 3: فعال‌سازی GitHub Pages</h3>
+        <ol>
+          <li>روی تب "Settings" کلیک کن</li>
+          <li>به پایین صفحه برو و بخش "Pages" را پیدا کن</li>
+          <li>Source: "Deploy from a branch" را انتخاب کن</li>
+          <li>Branch: "main" را انتخاب کن</li>
+          <li>Folder: "/ (root)" را انتخاب کن</li>
+          <li>روی "Save" کلیک کن</li>
+        </ol>
+      </div>
+
+      <div class="highlight">
+        <h4>🌐 آدرس سایت شما:</h4>
+        <p><strong>https://YOUR_USERNAME.github.io/spectrum-studio/</strong></p>
+        <p>YOUR_USERNAME را با نام کاربری گیت‌هاب خودت جایگزین کن</p>
+      </div>
+
+      <div class="warning">
+        <h4>⚠️ نکات مهم:</h4>
+        <ul>
+          <li>مطمئن شو همه فایل‌ها را انتخاب کرده‌ای</li>
+          <li>پوشه src را کامل آپلود کن</li>
+          <li>چند دقیقه صبر کن تا GitHub Pages فعال شود</li>
+        </ul>
+      </div>
+
+      <div class="success">
+        <h4>✅ بعد از آپلود تست کن:</h4>
+        <ul>
+          <li>همه صفحات باز می‌شوند</li>
+          <li>دکمه دارک مود کار می‌کند</li>
+          <li>منو موبایل کار می‌کند</li>
+          <li>فرم تماس کار می‌کند</li>
+          <li>در موبایل درست نمایش داده می‌شود</li>
+        </ul>
+      </div>
+
+      <div style="text-align: center; margin-top: 30px">
+        <a href="https://github.com" target="_blank" class="button">شروع کن</a>
+        <a href="src/home.html" target="_blank" class="button">مشاهده سایت</a>
+      </div>
+    </div>
+  </body>
+</html>

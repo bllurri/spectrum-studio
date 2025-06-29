@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Spectrum Architecture Studio</title>
+    <link href="./output.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      /* Unified CSS Variables for all pages */
+      :root {
+        /* Blue Accent Colors */
+        --color-accent-50: #f3f7fd;
+        --color-accent-100: #dbeafe;
+        --color-accent-200: #a7c7f9;
+        --color-accent-300: #5b8ef6;
+        --color-accent-400: #2563eb;
+        --color-accent-500: #1e40af;
+        --color-accent-600: #1e3a8a;
+        --color-accent-700: #172554;
+        --color-accent-800: #0f172a;
+        --color-accent-900: #0a1020;
+
+        /* Neutral Colors - Crisp Greys */
+        --color-neutral-50: #ffffff;
+        --color-neutral-100: #f3f4f6;
+        --color-neutral-200: #e5e7eb;
+        --color-neutral-300: #d1d5db;
+        --color-neutral-400: #9ca3af;
+        --color-neutral-500: #6b7280;
+        --color-neutral-600: #4b5563;
+        --color-neutral-700: #374151;
+        --color-neutral-800: #1f2937;
+        --color-neutral-900: #111827;
+
+        /* Theme Colors */
+        --bg-primary: var(--color-neutral-50);
+        --bg-secondary: var(--color-neutral-100);
+        --text-primary: var(--color-neutral-900);
+        --text-secondary: var(--color-neutral-600);
+        --accent-color: var(--color-accent-400);
+
+        /* Shadow variables */
+        --shadow-color: rgba(16, 24, 39, 0.1);
+        --shadow-hover-color: rgba(16, 24, 39, 0.18);
+        --shadow-dark: rgba(0, 0, 0, 0.32);
+        --radius-main: 1rem;
+        --border-color: var(--color-neutral-200);
+      }
+
+      /* Dark mode colors */
+      .dark {
+        --bg-primary: var(--color-neutral-900);
+        --bg-secondary: var(--color-neutral-800);
+        --text-primary: var(--color-neutral-50);
+        --text-secondary: var(--color-neutral-300);
+        --accent-color: var(--color-accent-300);
+        --shadow-color: rgba(0, 0, 0, 0.32);
+        --shadow-hover-color: rgba(0, 0, 0, 0.44);
+        --border-color: var(--color-neutral-700);
+      }
+
+      /* Base styles */
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        padding-top: 80px;
+      }
+
+      /* Unified section spacing */
+      section {
+        padding: 5rem 0;
+        background-color: var(--bg-primary);
+      }
+
+      /* Unified container */
+      .container {
+        max-width: 80rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .container {
+          padding: 0 1.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .container {
+          padding: 0 2rem;
+        }
+      }
+
+      /* Unified card styles */
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-main);
+        box-shadow: 0 4px 24px 0 var(--shadow-color);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        box-shadow: 0 12px 36px 0 var(--shadow-hover-color);
+        transform: translateY(-4px) scale(1.025);
+      }
+
+      /* Form styles */
+      .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .form-group .input-icon {
+        position: absolute;
+        left: 1.1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--accent-color);
+        font-size: 1.1rem;
+        pointer-events: none;
+        opacity: 0.7;
+      }
+
+      .form-input,
+      .form-textarea,
+      .form-select {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.7rem;
+        border: 1.5px solid var(--border-color);
+        border-radius: var(--radius-main);
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        font-size: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 1.4, 0.6, 1);
+        box-shadow: 0 1.5px 6px 0 var(--shadow-color);
+      }
+
+      .form-input:focus,
+      .form-textarea:focus,
+      .form-select:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.13);
+        background: var(--color-accent-50);
+      }
+
+      .dark .form-input:focus,
+      .dark .form-textarea:focus,
+      .dark .form-select:focus {
+        background: var(--color-accent-900);
+      }
+
+      .form-textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      /* Success message */
+      .form-success {
+        display: none;
+        background: linear-gradient(
+          90deg,
+          var(--color-accent-100),
+          var(--color-accent-200)
+        );
+        color: var(--color-accent-700);
+        border-radius: var(--radius-main);
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        box-shadow: 0 2px 12px 0 var(--shadow-color);
+        text-align: center;
+        animation: fadeIn 0.7s cubic-bezier(0.4, 1.4, 0.6, 1);
+      }
+
+      .form-success.show {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Unified button styles */
+      .btn {
+        min-width: 140px;
+        min-height: 48px;
+        font-size: 1.1rem;
+        padding: 0.75rem 2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-main);
+        box-shadow: 0 1.5px 6px 0 var(--shadow-color);
+        border: none;
+        transition: all 0.3s ease;
+        font-weight: 600;
+      }
+
+      .btn-primary {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--color-accent-500);
+        box-shadow: 0 4px 16px 0 var(--shadow-hover-color);
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+      }
+
+      .btn-secondary:hover {
+        background: var(--border-color);
+        box-shadow: 0 4px 16px 0 var(--shadow-hover-color);
+        transform: translateY(-2px);
+      }
+
+      /* Unified text colors */
+      .text-primary {
+        color: var(--text-primary);
+      }
+
+      .text-secondary {
+        color: var(--text-secondary);
+      }
+
+      .text-accent {
+        color: var(--accent-color);
+      }
+
+      /* Move dark mode toggle to bottom left, always visible */
+      #theme-toggle {
+        position: fixed;
+        bottom: 32px;
+        left: 32px;
+        z-index: 9999;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 2px solid var(--accent-color);
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(16px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 32px 0 rgba(37, 99, 235, 0.1),
+          0 1.5px 6px 0 var(--shadow-color);
+      }
+      #theme-toggle:focus {
+        outline: none;
+        border-color: var(--color-accent-400);
+        box-shadow: 0 0 0 4px var(--color-accent-200),
+          0 4px 32px 0 rgba(37, 99, 235, 0.1);
+      }
+      #theme-toggle:hover {
+        box-shadow: 0 4px 32px 0 rgba(37, 99, 235, 0.13);
+        border-color: var(--color-accent-400);
+        background: rgba(255, 255, 255, 0.55);
+        transform: scale(1.04);
+      }
+
+      /* Footer colors */
+      footer {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border-top: 1px solid var(--border-color);
+      }
+
+      /* Smooth transitions */
+      * {
+        transition: background-color 0.3s ease, color 0.3s ease,
+          border-color 0.3s ease;
+      }
+
+      /* Responsive typography */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 3rem;
+        }
+        h2 {
+          font-size: 2.5rem;
+        }
+        h3 {
+          font-size: 2rem;
+        }
+      }
+
+      @media (min-width: 769px) {
+        h1 {
+          font-size: 4rem;
+        }
+        h2 {
+          font-size: 3rem;
+        }
+        h3 {
+          font-size: 2.5rem;
+        }
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-secondary);
+      }
+
+      /* Contact info styles */
+      .contact-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .contact-info i {
+        width: 40px;
+        height: 40px;
+        background: var(--accent-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+      }
+
+      /* Enhanced Navbar Styles */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        transition: all 0.3s ease;
+        transform: translateY(0);
+      }
+
+      .dark .navbar {
+        background: rgba(17, 24, 39, 0.95);
+        border-bottom: 1px solid rgba(55, 65, 81, 0.5);
+      }
+
+      .navbar.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+      }
+
+      .dark .navbar.scrolled {
+        background: rgba(17, 24, 39, 0.98);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid rgba(55, 65, 81, 0.8);
+      }
+
+      .navbar.hidden {
+        transform: translateY(-100%);
+      }
+
+      .navbar-container {
+        max-width: 80rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .navbar-container {
+          padding: 0 1.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .navbar-container {
+          padding: 0 2rem;
+        }
+      }
+
+      .navbar-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        transition: padding 0.3s ease;
+      }
+
+      .navbar.scrolled .navbar-content {
+        padding: 0.75rem 0;
+      }
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand:hover {
+        transform: scale(1.05);
+      }
+
+      .navbar-logo {
+        width: 2rem;
+        height: 2rem;
+        background: var(--accent-color);
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-logo:hover {
+        transform: rotate(5deg) scale(1.1);
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+      }
+
+      .navbar-title {
+        color: var(--accent-color);
+        font-weight: bold;
+        font-size: 1.25rem;
+        letter-spacing: 0.1em;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-nav {
+        display: none;
+        gap: 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .navbar-nav {
+          display: flex;
+        }
+      }
+
+      .nav-link {
+        color: var(--text-primary);
+        font-weight: 600;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .nav-link::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(37, 99, 235, 0.1),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .nav-link:hover::before {
+        left: 100%;
+      }
+
+      .nav-link:hover {
+        color: var(--accent-color);
+        background: rgba(37, 99, 235, 0.05);
+        transform: translateY(-2px);
+      }
+
+      .nav-link.active {
+        color: var(--accent-color);
+        background: rgba(37, 99, 235, 0.1);
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: none;
+        background: transparent;
+        color: var(--text-primary);
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .mobile-menu-btn:hover {
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--accent-color);
+        transform: scale(1.1);
+      }
+
+      @media (min-width: 768px) {
+        .mobile-menu-btn {
+          display: none;
+        }
+      }
+
+      /* Mobile Menu Styles */
+      @media (max-width: 767px) {
+        .navbar-nav {
+          position: fixed;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(10px);
+          border-top: 1px solid rgba(229, 231, 235, 0.5);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+          flex-direction: column;
+          padding: 1rem 0;
+          transform: translateY(-100%);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .dark .navbar-nav {
+          background: rgba(17, 24, 39, 0.98);
+          border-top: 1px solid rgba(55, 65, 81, 0.5);
+        }
+
+        .navbar-nav.show {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .nav-link {
+          padding: 1rem 2rem;
+          border-radius: 0;
+          border-bottom: 1px solid rgba(229, 231, 235, 0.2);
+          text-align: center;
+          font-size: 1.1rem;
+        }
+
+        .dark .nav-link {
+          border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+        }
+
+        .nav-link:last-child {
+          border-bottom: none;
+        }
+      }
+
+      /* Add floating label, animation, ripple, and parallax styles */
+      .floating-label {
+        position: relative;
+      }
+      .floating-label .form-input,
+      .floating-label .form-textarea,
+      .floating-label .form-select {
+        background: transparent;
+        border: 1.5px solid var(--border-color);
+        border-radius: var(--radius-main);
+        padding: 1.1rem 1rem 0.5rem 2.7rem;
+        font-size: 1rem;
+        color: var(--text-primary);
+        box-shadow: 0 1.5px 6px 0 var(--shadow-color);
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+      .floating-label .form-input:focus,
+      .floating-label .form-textarea:focus,
+      .floating-label .form-select:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px var(--color-accent-100);
+      }
+      .floating-label .form-label {
+        position: absolute;
+        left: 2.7rem;
+        top: 1.1rem;
+        color: var(--text-secondary);
+        font-size: 1rem;
+        pointer-events: none;
+        background: transparent;
+        transition: all 0.2s cubic-bezier(0.4, 1.4, 0.6, 1);
+      }
+      .floating-label .form-input:focus + .form-label,
+      .floating-label .form-input:not(:placeholder-shown) + .form-label,
+      .floating-label .form-textarea:focus + .form-label,
+      .floating-label .form-textarea:not(:placeholder-shown) + .form-label,
+      .floating-label .form-select:focus + .form-label,
+      .floating-label .form-select:not([value=""]) + .form-label {
+        top: -0.7rem;
+        left: 2.2rem;
+        font-size: 0.85rem;
+        color: var(--accent-color);
+        background: var(--bg-primary);
+        padding: 0 0.3em;
+        border-radius: 0.5em;
+      }
+      @media (max-width: 640px) {
+        .floating-label .form-label {
+          left: 2.1rem;
+        }
+        .floating-label .form-input:focus + .form-label,
+        .floating-label .form-input:not(:placeholder-shown) + .form-label,
+        .floating-label .form-textarea:focus + .form-label,
+        .floating-label .form-textarea:not(:placeholder-shown) + .form-label {
+          left: 1.6rem;
+        }
+      }
+      @keyframes fade-in-up {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 1s cubic-bezier(0.4, 1.4, 0.6, 1) both;
+      }
+      .delay-100 {
+        animation-delay: 0.1s;
+      }
+      .delay-200 {
+        animation-delay: 0.2s;
+      }
+      .delay-300 {
+        animation-delay: 0.3s;
+      }
+      .delay-400 {
+        animation-delay: 0.4s;
+      }
+      .delay-500 {
+        animation-delay: 0.5s;
+      }
+      .delay-600 {
+        animation-delay: 0.6s;
+      }
+      .delay-700 {
+        animation-delay: 0.7s;
+      }
+      @keyframes bounce-x {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(8px) scale(1.2) rotate(-18deg);
+        }
+      }
+      .animate-bounce-x {
+        animation: bounce-x 1.2s infinite;
+      }
+      /* Ripple effect for button */
+      .ripple {
+        position: relative;
+        overflow: hidden;
+      }
+      .ripple:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(37, 99, 235, 0.18);
+        border-radius: 100%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none;
+        transition: width 0.4s cubic-bezier(0.4, 1.4, 0.6, 1),
+          height 0.4s cubic-bezier(0.4, 1.4, 0.6, 1), opacity 0.4s;
+      }
+      .ripple:active:after {
+        width: 200px;
+        height: 200px;
+        opacity: 1;
+        transition: 0s;
+      }
+      /* Parallax effect for map */
+      .parallax-bg {
+        transition: transform 0.5s cubic-bezier(0.4, 1.4, 0.6, 1);
+      }
+      @media (max-width: 768px) {
+        .parallax-bg {
+          background-position: center 30% !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <div class="navbar-container">
+        <div class="navbar-content">
+          <div class="navbar-brand">
+            <div class="navbar-logo">
+              <span class="text-white font-bold text-sm">S</span>
+            </div>
+            <span class="navbar-title">SPECTRUM</span>
+          </div>
+          <!-- Desktop Navigation -->
+          <div class="navbar-nav">
+            <a href="home.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="team.html" class="nav-link">Team</a>
+            <a href="portfolio.html" class="nav-link">Portfolio</a>
+            <a href="contact.html" class="nav-link active">Contact</a>
+          </div>
+          <!-- Mobile menu button -->
+          <button class="mobile-menu-btn" id="mobile-menu-btn">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="py-20 bg-gradient-to-br from-accent-50 to-accent-100 dark:from-accent-900 dark:to-accent-800"
+    >
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-6xl font-bold text-primary mb-6">
+            Get in <span class="text-accent">Touch</span>
+          </h1>
+          <p class="text-xl text-secondary mb-8 max-w-3xl mx-auto">
+            Ready to start your next architectural project? We'd love to hear
+            from you. Let's discuss how we can bring your vision to life.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section
+      class="relative py-20 overflow-x-hidden bg-gradient-to-br from-accent-100 via-accent-200 to-accent-50 dark:from-accent-900 dark:via-accent-800 dark:to-accent-700"
+    >
+      <!-- SVG Shape Divider -->
+      <svg
+        class="hidden md:block absolute left-1/2 top-0 -translate-x-1/2 z-0"
+        width="1200"
+        height="180"
+        viewBox="0 0 1200 180"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style="pointer-events: none"
+      >
+        <path
+          d="M0,80 C300,180 900,0 1200,100 L1200,0 L0,0 Z"
+          fill="url(#shape-gradient)"
+          opacity="0.18"
+        />
+        <defs>
+          <linearGradient
+            id="shape-gradient"
+            x1="0"
+            y1="0"
+            x2="1200"
+            y2="0"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#2563eb" />
+            <stop offset="1" stop-color="#a7c7f9" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div
+        class="container mx-auto px-4 relative z-10 flex flex-col gap-16 items-center"
+      >
+        <!-- Contact Form -->
+        <div
+          class="relative flex flex-col items-center w-full max-w-2xl mx-auto"
+        >
+          <div class="-mt-12 mb-6 animate-fade-in-up">
+            <div
+              class="w-20 h-20 rounded-full bg-gradient-to-br from-accent-400 to-accent-200 flex items-center justify-center shadow-2xl border-4 border-white dark:border-neutral-900"
+            >
+              <i class="fas fa-envelope-open-text text-white text-4xl"></i>
+            </div>
+          </div>
+          <div
+            class="card p-10 shadow-2xl bg-white/60 dark:bg-neutral-900/60 backdrop-blur-2xl border border-accent-200 dark:border-accent-700 relative animate-fade-in-up group transition-all duration-500 rounded-3xl w-full"
+            style="
+              overflow: visible;
+              box-shadow: 0 8px 48px 0 rgba(37, 99, 235, 0.13),
+                0 1.5px 6px 0 var(--shadow-color);
+            "
+          >
+            <div
+              class="absolute -inset-1 rounded-3xl pointer-events-none group-hover:shadow-[0_0_32px_8px_var(--color-accent-200)] group-focus-within:shadow-[0_0_32px_16px_var(--color-accent-400)] transition-all duration-500 border-2 border-transparent group-hover:border-accent-300 group-focus-within:border-accent-400"
+            ></div>
+            <h2
+              class="text-3xl font-extrabold text-primary mb-8 text-center tracking-tight"
+            >
+              Send Us a Message
+            </h2>
+            <form id="contactForm" autocomplete="off" class="space-y-7">
+              <div id="formSuccess" class="form-success mb-6">
+                <i class="fas fa-check-circle mr-2"></i>
+                Your message was sent successfully!
+              </div>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="form-group floating-label">
+                  <input
+                    type="text"
+                    class="form-input peer"
+                    placeholder=" "
+                    required
+                  />
+                  <label class="form-label">First Name</label>
+                  <span class="input-icon"><i class="fas fa-user"></i></span>
+                </div>
+                <div class="form-group floating-label">
+                  <input
+                    type="text"
+                    class="form-input peer"
+                    placeholder=" "
+                    required
+                  />
+                  <label class="form-label">Last Name</label>
+                  <span class="input-icon"><i class="fas fa-user"></i></span>
+                </div>
+              </div>
+              <div class="form-group floating-label">
+                <input
+                  type="email"
+                  class="form-input peer"
+                  placeholder=" "
+                  required
+                />
+                <label class="form-label">Email</label>
+                <span class="input-icon"><i class="fas fa-envelope"></i></span>
+              </div>
+              <div class="form-group floating-label">
+                <input type="tel" class="form-input peer" placeholder=" " />
+                <label class="form-label">Phone</label>
+                <span class="input-icon"><i class="fas fa-phone"></i></span>
+              </div>
+              <div class="form-group floating-label">
+                <select class="form-select peer">
+                  <option value="" selected disabled hidden></option>
+                  <option value="residential">Residential Design</option>
+                  <option value="commercial">Commercial Project</option>
+                  <option value="interior">Interior Design</option>
+                  <option value="urban">Urban Planning</option>
+                  <option value="other">Other</option>
+                </select>
+                <label class="form-label">Project Type</label>
+                <span class="input-icon"
+                  ><i class="fas fa-layer-group"></i
+                ></span>
+              </div>
+              <div class="form-group floating-label">
+                <textarea
+                  class="form-textarea peer"
+                  placeholder=" "
+                  required
+                ></textarea>
+                <label class="form-label">Message</label>
+                <span class="input-icon"
+                  ><i class="fas fa-comment-dots"></i
+                ></span>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary w-full flex items-center justify-center gap-2 text-lg py-4 rounded-full shadow-2xl bg-gradient-to-r from-accent-400 via-accent-300 to-accent-500 hover:from-accent-500 hover:to-accent-400 transition-all duration-300 focus:ring-4 focus:ring-accent-200 focus:outline-none animate-fade-in-up relative overflow-hidden ripple"
+              >
+                <span class="send-text font-bold tracking-wide"
+                  >Send Message</span
+                >
+                <i class="fas fa-paper-plane send-icon animate-bounce-x"></i>
+                <span
+                  class="absolute inset-0 rounded-full pointer-events-none group-hover:shadow-[0_0_32px_8px_var(--color-accent-300)] transition-all duration-500"
+                ></span>
+              </button>
+            </form>
+          </div>
+        </div>
+        <!-- Contact Information -->
+        <div
+          class="flex flex-col gap-8 w-full max-w-3xl animate-fade-in-up delay-100 mx-auto"
+        >
+          <div class="grid grid-cols-1 gap-6">
+            <div
+              class="card flex flex-col items-center p-7 text-center shadow-xl backdrop-blur-2xl bg-white/70 dark:bg-neutral-900/70 border border-accent-100 dark:border-accent-800 animate-fade-in-up delay-200 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 rounded-2xl"
+            >
+              <div
+                class="w-16 h-16 flex items-center justify-center rounded-full bg-accent mb-4 shadow-lg"
+              >
+                <i class="fas fa-map-marker-alt text-white text-3xl"></i>
+              </div>
+              <h4 class="font-semibold text-primary mb-1 text-lg">Address</h4>
+              <p class="text-secondary">
+                123 Design Street<br />City, State 12345
+              </p>
+            </div>
+            <div
+              class="card flex flex-col items-center p-7 text-center shadow-xl backdrop-blur-2xl bg-white/70 dark:bg-neutral-900/70 border border-accent-100 dark:border-accent-800 animate-fade-in-up delay-300 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 rounded-2xl"
+            >
+              <div
+                class="w-16 h-16 flex items-center justify-center rounded-full bg-accent mb-4 shadow-lg"
+              >
+                <i class="fas fa-phone text-white text-3xl"></i>
+              </div>
+              <h4 class="font-semibold text-primary mb-1 text-lg">Phone</h4>
+              <p class="text-secondary">+1 (555) 123-4567</p>
+            </div>
+            <div
+              class="card flex flex-col items-center p-7 text-center shadow-xl backdrop-blur-2xl bg-white/70 dark:bg-neutral-900/70 border border-accent-100 dark:border-accent-800 animate-fade-in-up delay-400 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 rounded-2xl"
+            >
+              <div
+                class="w-16 h-16 flex items-center justify-center rounded-full bg-accent mb-4 shadow-lg"
+              >
+                <i class="fas fa-envelope text-white text-3xl"></i>
+              </div>
+              <h4 class="font-semibold text-primary mb-1 text-lg">Email</h4>
+              <p class="text-secondary">info@spectrumstudio.com</p>
+            </div>
+            <div
+              class="card flex flex-col items-center p-7 text-center shadow-xl backdrop-blur-2xl bg-white/70 dark:bg-neutral-900/70 border border-accent-100 dark:border-accent-800 animate-fade-in-up delay-500 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 rounded-2xl"
+            >
+              <div
+                class="w-16 h-16 flex items-center justify-center rounded-full bg-accent mb-4 shadow-lg"
+              >
+                <i class="fas fa-clock text-white text-3xl"></i>
+              </div>
+              <h4 class="font-semibold text-primary mb-1 text-lg">
+                Business Hours
+              </h4>
+              <p class="text-secondary">
+                Mon-Fri: 9:00-18:00<br />Sat: 10:00-16:00
+              </p>
+            </div>
+          </div>
+          <div
+            class="card flex flex-col items-center p-6 text-center shadow-xl backdrop-blur-2xl bg-white/70 dark:bg-neutral-900/70 border border-accent-100 dark:border-accent-800 animate-fade-in-up delay-600 rounded-2xl"
+          >
+            <h3 class="text-2xl font-bold text-primary mb-4">Follow Us</h3>
+            <div class="flex gap-4 justify-center">
+              <a
+                href="#"
+                aria-label="Facebook"
+                class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="#"
+                aria-label="Twitter"
+                class="w-12 h-12 rounded-full bg-sky-400 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="#"
+                aria-label="Instagram"
+                class="w-12 h-12 rounded-full bg-pink-500 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                class="w-12 h-12 rounded-full bg-blue-800 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Parallax Map Section -->
+      <section class="py-20 bg-secondary relative overflow-hidden">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+              Visit Our Studio
+            </h2>
+            <p class="text-secondary text-lg max-w-2xl mx-auto">
+              Come see our workspace and meet our team in person
+            </p>
+          </div>
+          <div
+            class="relative rounded-3xl overflow-hidden shadow-2xl max-w-3xl mx-auto animate-fade-in-up delay-700 group"
+          >
+            <div
+              class="parallax-bg absolute inset-0 w-full h-full z-0"
+              style="
+                background: url('images/contact-office.jpg') center center /
+                  cover no-repeat;
+                will-change: transform;
+              "
+            ></div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"
+            ></div>
+            <div class="absolute left-1/2 bottom-16 -translate-x-1/2 z-20">
+              <div
+                class="w-16 h-16 rounded-full bg-accent flex items-center justify-center shadow-2xl border-4 border-white dark:border-neutral-900 animate-bounce"
+              >
+                <i class="fas fa-map-marker-alt text-white text-3xl"></i>
+              </div>
+            </div>
+            <div class="absolute left-0 bottom-0 p-6 z-20">
+              <div
+                class="bg-white/90 dark:bg-neutral-900/90 rounded-xl px-6 py-3 shadow-lg text-primary text-lg font-semibold flex items-center gap-3"
+              >
+                <i class="fas fa-map-marker-alt text-accent"></i>
+                123 Design Street, City
+                <a
+                  href="#"
+                  class="ml-4 btn btn-primary rounded-full px-6 py-2 text-base font-bold shadow hover:scale-105 transition-transform"
+                  >Get Directions</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <div class="flex items-center space-x-3 mb-4">
+              <div
+                class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white font-bold text-sm">S</span>
+              </div>
+              <span class="text-accent font-bold text-xl">SPECTRUM</span>
+            </div>
+            <p class="text-secondary">
+              Creating innovative architectural solutions that inspire and
+              transform spaces.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-primary mb-4">Services</h4>
+            <ul class="space-y-2 text-secondary">
+              <li>
+                <a href="#" class="hover:text-accent transition-colors"
+                  >Residential Design</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-accent transition-colors"
+                  >Commercial Projects</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-accent transition-colors"
+                  >Sustainable Design</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-accent transition-colors"
+                  >Urban Planning</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-primary mb-4">Company</h4>
+            <ul class="space-y-2 text-secondary">
+              <li>
+                <a href="about.html" class="hover:text-accent transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a href="team.html" class="hover:text-accent transition-colors"
+                  >Our Team</a
+                >
+              </li>
+              <li>
+                <a
+                  href="portfolio.html"
+                  class="hover:text-accent transition-colors"
+                  >Portfolio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="contact.html"
+                  class="hover:text-accent transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-primary mb-4">Contact</h4>
+            <div class="space-y-2 text-secondary">
+              <div class="flex items-center">
+                <i class="fas fa-map-marker-alt mr-2 text-accent"></i>
+                <span>123 Design Street, City</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-phone mr-2 text-accent"></i>
+                <span>+1 (555) 123-4567</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-envelope mr-2 text-accent"></i>
+                <span>info@spectrumstudio.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-border-color mt-8 pt-8 text-center text-secondary"
+        >
+          <p>&copy; 2024 Spectrum Studio. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Redesigned Dark Mode Toggle Button (Static Sun Icon) -->
+    <button
+      id="theme-toggle"
+      aria-label="Toggle Dark Mode"
+      type="button"
+      style="
+        position: fixed;
+        bottom: 32px;
+        left: 32px;
+        z-index: 9999;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 2px solid var(--accent-color);
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(16px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 32px 0 rgba(37, 99, 235, 0.1),
+          0 1.5px 6px 0 var(--shadow-color);
+      "
+    >
+      <span
+        style="
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <!-- Static Sun SVG Icon -->
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="16" cy="16" r="8" fill="#facc15" />
+          <g stroke="#facc15" stroke-width="2" stroke-linecap="round">
+            <line x1="16" y1="4" x2="16" y2="8" />
+            <line x1="16" y1="24" x2="16" y2="28" />
+            <line x1="4" y1="16" x2="8" y2="16" />
+            <line x1="24" y1="16" x2="28" y2="16" />
+            <line x1="7.76" y1="7.76" x2="10.24" y2="10.24" />
+            <line x1="21.76" y1="21.76" x2="24.24" y2="24.24" />
+            <line x1="7.76" y1="24.24" x2="10.24" y2="21.76" />
+            <line x1="21.76" y1="10.24" x2="24.24" y2="7.76" />
+          </g>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" aria-label="Scroll to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+      // Dark mode toggle functionality + enhanced navbar + scroll to top + form success
+      document.addEventListener("DOMContentLoaded", function () {
+        const themeToggle = document.getElementById("theme-toggle");
+        const html = document.documentElement;
+        // Theme
+        const currentTheme = localStorage.getItem("theme") || "light";
+        html.className = currentTheme;
+        themeToggle.addEventListener("click", function () {
+          const currentTheme = html.className;
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          html.className = newTheme;
+          localStorage.setItem("theme", newTheme);
+        });
+        // Navbar scroll effects (no hide on scroll)
+        const navbar = document.getElementById("navbar");
+        let scrollTimeout;
+        function handleScroll() {
+          const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+          if (scrollTop > 50) {
+            navbar.classList.add("scrolled");
+          } else {
+            navbar.classList.remove("scrolled");
+          }
+        }
+        function throttledScroll() {
+          if (!scrollTimeout) {
+            scrollTimeout = setTimeout(() => {
+              handleScroll();
+              scrollTimeout = null;
+            }, 10);
+          }
+        }
+        window.addEventListener("scroll", throttledScroll);
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+        const navbarNav = document.querySelector(".navbar-nav");
+        if (mobileMenuBtn) {
+          mobileMenuBtn.addEventListener("click", function () {
+            navbarNav.classList.toggle("show");
+            const icon = mobileMenuBtn.querySelector("i");
+            if (navbarNav.classList.contains("show")) {
+              icon.className = "fas fa-times text-xl";
+            } else {
+              icon.className = "fas fa-bars text-xl";
+            }
+          });
+        }
+        document.addEventListener("click", function (event) {
+          if (!navbar.contains(event.target)) {
+            navbarNav.classList.remove("show");
+            const icon = mobileMenuBtn.querySelector("i");
+            icon.className = "fas fa-bars text-xl";
+          }
+        });
+        // Nav active link
+        const navLinks = document.querySelectorAll(".nav-link");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            navLinks.forEach((l) => l.classList.remove("active"));
+            this.classList.add("active");
+          });
+        });
+        const currentPage =
+          window.location.pathname.split("/").pop() || "contact.html";
+        navLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
+        });
+        // --- Fake Form Submission ---
+        const contactForm = document.getElementById("contactForm");
+        const formSuccess = document.getElementById("formSuccess");
+        if (contactForm && formSuccess) {
+          contactForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            formSuccess.classList.add("show");
+            contactForm
+              .querySelectorAll("input, textarea, select")
+              .forEach((el) => (el.value = ""));
+            setTimeout(() => {
+              formSuccess.classList.remove("show");
+            }, 3500);
+          });
+        }
+        // --- Animated Send Icon ---
+        const sendBtn = contactForm
+          ? contactForm.querySelector('button[type="submit"]')
+          : null;
+        if (sendBtn) {
+          sendBtn.addEventListener("click", function () {
+            const icon = sendBtn.querySelector(".send-icon");
+            if (icon) {
+              icon.style.transition =
+                "transform 0.4s cubic-bezier(.4,1.4,.6,1)";
+              icon.style.transform =
+                "translateX(8px) scale(1.3) rotate(-18deg)";
+              setTimeout(() => {
+                icon.style.transform = "";
+              }, 400);
+            }
+          });
+        }
+        // --- Scroll to Top Button ---
+        const scrollBtn = document.getElementById("scrollToTopBtn");
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 300) {
+            scrollBtn.classList.add("show");
+          } else {
+            scrollBtn.classList.remove("show");
+          }
+        });
+        scrollBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        // Parallax effect for map
+        window.addEventListener("scroll", function () {
+          var map = document.querySelector(".parallax-bg");
+          if (map) {
+            var rect = map.getBoundingClientRect();
+            var winH = window.innerHeight;
+            var offset = (rect.top + rect.height / 2 - winH / 2) * 0.08;
+            map.style.transform = "translateY(" + offset + "px)";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

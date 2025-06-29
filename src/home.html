@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spectrum - Modern Architecture Studio</title>
+    <link rel="stylesheet" href="output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --color-accent-50: #f3f7fd;
+        --color-accent-100: #dbeafe;
+        --color-accent-200: #a7c7f9;
+        --color-accent-300: #5b8ef6;
+        --color-accent-400: #2563eb;
+        --color-accent-500: #1e40af;
+        --color-accent-600: #1e3a8a;
+        --color-accent-700: #172554;
+        --color-accent-800: #0f172a;
+        --color-accent-900: #0a1020;
+        --color-neutral-50: #ffffff;
+        --color-neutral-100: #f3f4f6;
+        --color-neutral-200: #e5e7eb;
+        --color-neutral-300: #d1d5db;
+        --color-neutral-400: #9ca3af;
+        --color-neutral-500: #6b7280;
+        --color-neutral-600: #4b5563;
+        --color-neutral-700: #374151;
+        --color-neutral-800: #1f2937;
+        --color-neutral-900: #111827;
+        --bg-primary: var(--color-neutral-50);
+        --bg-secondary: var(--color-neutral-100);
+        --text-primary: var(--color-neutral-900);
+        --text-secondary: var(--color-neutral-600);
+        --accent-color: var(--color-accent-400);
+        --shadow-color: rgba(16, 24, 39, 0.1);
+        --shadow-hover-color: rgba(16, 24, 39, 0.18);
+        --shadow-dark: rgba(0, 0, 0, 0.32);
+        --radius-main: 1rem;
+        --border-color: var(--color-neutral-200);
+      }
+
+      .dark {
+        --bg-primary: var(--color-neutral-900);
+        --bg-secondary: var(--color-neutral-800);
+        --text-primary: var(--color-neutral-50);
+        --text-secondary: var(--color-neutral-300);
+        --accent-color: var(--color-accent-300);
+        --shadow-color: rgba(0, 0, 0, 0.32);
+        --shadow-hover-color: rgba(0, 0, 0, 0.44);
+        --border-color: var(--color-neutral-700);
+      }
+
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        padding-top: 80px;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        transition: all 0.3s ease;
+        transform: translateY(0);
+      }
+
+      .dark .navbar {
+        background: rgba(17, 24, 39, 0.95);
+        border-bottom: 1px solid rgba(55, 65, 81, 0.5);
+      }
+
+      .navbar.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+      }
+
+      .dark .navbar.scrolled {
+        background: rgba(17, 24, 39, 0.98);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid rgba(55, 65, 81, 0.8);
+      }
+
+      .navbar-container {
+        max-width: 80rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .navbar-container {
+          padding: 0 1.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .navbar-container {
+          padding: 0 2rem;
+        }
+      }
+
+      .navbar-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        transition: padding 0.3s ease;
+      }
+
+      .navbar.scrolled .navbar-content {
+        padding: 0.75rem 0;
+      }
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand:hover {
+        transform: scale(1.05);
+      }
+
+      .navbar-logo {
+        width: 2rem;
+        height: 2rem;
+        background: var(--accent-color);
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-logo:hover {
+        transform: rotate(5deg) scale(1.1);
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+      }
+
+      .navbar-title {
+        color: var(--accent-color);
+        font-weight: bold;
+        font-size: 1.25rem;
+        letter-spacing: 0.1em;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-nav {
+        display: none;
+        gap: 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .navbar-nav {
+          display: flex;
+        }
+      }
+
+      .nav-link {
+        color: var(--text-primary);
+        font-weight: 600;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .nav-link::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(37, 99, 235, 0.1),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .nav-link:hover::before {
+        left: 100%;
+      }
+
+      .nav-link:hover {
+        color: var(--accent-color);
+        background: rgba(37, 99, 235, 0.05);
+        transform: translateY(-2px);
+      }
+
+      .nav-link.active {
+        color: var(--accent-color);
+        background: rgba(37, 99, 235, 0.1);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      @media (min-width: 768px) {
+        .mobile-menu-btn {
+          display: none;
+        }
+      }
+
+      .mobile-menu-btn:hover {
+        background: var(--accent-color);
+        color: white;
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 767px) {
+        .navbar-nav {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--bg-primary);
+          border-top: 1px solid var(--border-color);
+          padding: 1rem;
+          flex-direction: column;
+          gap: 0.5rem;
+          transform: translateY(-100%);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .navbar-nav.show {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .nav-link {
+          padding: 0.75rem 1rem;
+          border-radius: 0.5rem;
+          text-align: center;
+        }
+      }
+
+      section {
+        padding: 5rem 0;
+        background-color: var(--bg-primary);
+      }
+
+      .container {
+        max-width: 80rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .container {
+          padding: 0 1.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .container {
+          padding: 0 2rem;
+        }
+      }
+
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-main);
+        box-shadow: 0 4px 24px 0 var(--shadow-color);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        box-shadow: 0 12px 36px 0 var(--shadow-hover-color);
+        transform: translateY(-4px) scale(1.025);
+      }
+
+      .btn {
+        min-width: 140px;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: var(--radius-main);
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 1.4, 0.6, 1);
+        box-shadow: 0 2px 8px 0 var(--shadow-color);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--color-accent-500);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px 0 rgba(37, 99, 235, 0.3);
+      }
+
+      .btn-secondary {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border: 2px solid var(--border-color);
+      }
+
+      .btn-secondary:hover {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px 0 var(--shadow-hover-color);
+      }
+
+      .hero-section {
+        background: linear-gradient(
+          135deg,
+          var(--color-accent-50) 0%,
+          var(--color-accent-100) 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+
+      .dark .hero-section {
+        background: linear-gradient(
+          135deg,
+          var(--color-accent-900) 0%,
+          var(--color-accent-800) 100%
+        );
+      }
+
+      .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--text-primary) 0%,
+          var(--accent-color) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.25rem);
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .service-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-main);
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--accent-color),
+          var(--color-accent-300)
+        );
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .service-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px 0 var(--shadow-hover-color);
+      }
+
+      .service-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(
+          135deg,
+          var(--accent-color),
+          var(--color-accent-300)
+        );
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .service-card:hover .service-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .about-preview {
+        background: var(--bg-secondary);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .about-preview::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          transparent 30%,
+          rgba(37, 99, 235, 0.05) 50%,
+          transparent 70%
+        );
+        animation: shimmer 3s ease-in-out infinite;
+      }
+
+      @keyframes shimmer {
+        0%,
+        100% {
+          transform: translateX(-100%);
+        }
+        50% {
+          transform: translateX(100%);
+        }
+      }
+
+      .about-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .portfolio-card {
+        position: relative;
+        border-radius: var(--radius-main);
+        overflow: hidden;
+        aspect-ratio: 4/3;
+        background: var(--bg-secondary);
+        transition: all 0.3s ease;
+      }
+
+      .portfolio-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 40px 0 var(--shadow-hover-color);
+      }
+
+      .portfolio-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.3s ease;
+      }
+
+      .portfolio-card:hover .portfolio-image {
+        transform: scale(1.1);
+      }
+
+      .portfolio-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        color: white;
+        padding: 2rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .portfolio-card:hover .portfolio-overlay {
+        transform: translateY(0);
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .testimonial-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-main);
+        padding: 2rem;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .testimonial-card::before {
+        content: '"';
+        position: absolute;
+        top: -1rem;
+        left: 2rem;
+        font-size: 4rem;
+        color: var(--accent-color);
+        opacity: 0.3;
+        font-family: serif;
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px 0 var(--shadow-hover-color);
+      }
+
+      .testimonial-text {
+        font-style: italic;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .author-avatar {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background: var(--accent-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .stat-card {
+        text-align: center;
+        padding: 2rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-main);
+        transition: all 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px 0 var(--shadow-hover-color);
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+
+      footer {
+        background: var(--bg-secondary);
+        border-top: 1px solid var(--border-color);
+        padding: 3rem 0 1rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h4 {
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section ul li a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-section ul li a:hover {
+        color: var(--accent-color);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid var(--border-color);
+        padding-top: 1rem;
+        text-align: center;
+        color: var(--text-secondary);
+      }
+
+      #theme-toggle {
+        background: rgba(255, 255, 255, 0.4);
+        border: 2px solid var(--accent-color);
+        box-shadow: 0 4px 32px 0 rgba(37, 99, 235, 0.1),
+          0 1.5px 6px 0 var(--shadow-color), 0 0 0 0 var(--accent-color);
+        backdrop-filter: blur(16px);
+        transition: box-shadow 0.3s, border-color 0.3s, background 0.3s,
+          transform 0.2s;
+      }
+      #theme-toggle:focus {
+        outline: none;
+        border-color: var(--color-accent-400);
+        box-shadow: 0 0 0 4px var(--color-accent-200),
+          0 4px 32px 0 rgba(37, 99, 235, 0.1);
+      }
+      #theme-toggle:hover {
+        box-shadow: 0 4px 32px 0 rgba(37, 99, 235, 0.13);
+        border-color: var(--color-accent-400);
+        background: rgba(255, 255, 255, 0.55);
+        transform: scale(1.04);
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+        h2 {
+          font-size: 2rem;
+        }
+        h3 {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (min-width: 769px) {
+        h1 {
+          font-size: 3.5rem;
+        }
+        h2 {
+          font-size: 2.5rem;
+        }
+        h3 {
+          font-size: 2rem;
+        }
+      }
+
+      * {
+        transition: background-color 0.3s ease, color 0.3s ease,
+          border-color 0.3s ease;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Enhanced Navigation -->
+    <nav class="navbar" id="navbar">
+      <div class="navbar-container">
+        <div class="navbar-content">
+          <div class="navbar-brand">
+            <div class="navbar-logo">
+              <span class="text-white font-bold text-sm">S</span>
+            </div>
+            <span class="navbar-title">SPECTRUM</span>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <div class="navbar-nav">
+            <a href="home.html" class="nav-link active">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="team.html" class="nav-link">Team</a>
+            <a href="portfolio.html" class="nav-link">Portfolio</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+          </div>
+
+          <!-- Mobile menu button -->
+          <button class="mobile-menu-btn" id="mobile-menu-btn">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section py-20">
+      <div class="container">
+        <div class="hero-content text-center">
+          <h1 class="hero-title">
+            Modern Architecture
+            <span class="text-accent">Studio</span>
+          </h1>
+          <p class="hero-subtitle text-secondary">
+            Creating innovative spaces that inspire and transform the way we
+            live, work, and interact with our environment. We blend creativity
+            with functionality to deliver exceptional architectural solutions.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="portfolio.html" class="btn btn-primary">
+              <i class="fas fa-eye mr-2"></i>
+              View Our Work
+            </a>
+            <a href="contact.html" class="btn btn-secondary">
+              <i class="fas fa-phone mr-2"></i>
+              Get in Touch
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-20">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+            Our Services
+          </h2>
+          <p class="text-secondary text-lg max-w-2xl mx-auto">
+            We offer comprehensive architectural services from concept to
+            completion, ensuring every project meets the highest standards of
+            design and functionality.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-home"></i>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">
+              Residential Design
+            </h3>
+            <p class="text-secondary">
+              Custom homes that reflect your lifestyle and aspirations, designed
+              for comfort, functionality, and aesthetic appeal. From modern
+              minimalism to classic elegance.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-building"></i>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">
+              Commercial Projects
+            </h3>
+            <p class="text-secondary">
+              Innovative commercial spaces that enhance productivity and create
+              memorable experiences. Offices, retail spaces, and mixed-use
+              developments.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">
+              Sustainable Design
+            </h3>
+            <p class="text-secondary">
+              Eco-friendly architecture that minimizes environmental impact
+              while maximizing efficiency and comfort. Green building practices
+              and renewable energy integration.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-city"></i>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">Urban Planning</h3>
+            <p class="text-secondary">
+              Comprehensive urban development solutions that create livable,
+              sustainable communities. Master planning, zoning, and
+              infrastructure design.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-paint-brush"></i>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">Interior Design</h3>
+            <p class="text-secondary">
+              Seamless interior spaces that complement architectural design.
+              Furniture selection, lighting design, and material coordination.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-drafting-compass"></i>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">
+              Project Management
+            </h3>
+            <p class="text-secondary">
+              End-to-end project coordination ensuring timely delivery and
+              quality control. From initial consultation to final handover.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Preview Section -->
+    <section class="about-preview py-20">
+      <div class="container">
+        <div class="about-content text-center">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+            About Spectrum Studio
+          </h2>
+          <p class="text-secondary text-lg max-w-3xl mx-auto mb-8">
+            Founded with a passion for innovative design and sustainable
+            architecture, Spectrum Studio has been transforming spaces and
+            creating meaningful experiences for over a decade. Our team of
+            experienced architects and designers work collaboratively to bring
+            your vision to life.
+          </p>
+          <a href="about.html" class="btn btn-primary">
+            <i class="fas fa-arrow-right mr-2"></i>
+            Learn More About Us
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Preview Section -->
+    <section class="py-20">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+            Featured Projects
+          </h2>
+          <p class="text-secondary text-lg max-w-2xl mx-auto">
+            Explore our portfolio of award-winning projects that showcase our
+            commitment to excellence in architectural design and innovation.
+          </p>
+        </div>
+
+        <div class="portfolio-grid">
+          <div class="portfolio-card">
+            <img
+              src="images/project1.jpg"
+              alt="Modern Residential Complex"
+              class="portfolio-image"
+            />
+            <div class="portfolio-overlay">
+              <h3 class="text-xl font-bold mb-2">Modern Residential Complex</h3>
+              <p class="text-sm opacity-90">
+                Contemporary living spaces with sustainable design principles
+              </p>
+            </div>
+          </div>
+
+          <div class="portfolio-card">
+            <img
+              src="images/project2.jpg"
+              alt="Corporate Headquarters"
+              class="portfolio-image"
+            />
+            <div class="portfolio-overlay">
+              <h3 class="text-xl font-bold mb-2">Corporate Headquarters</h3>
+              <p class="text-sm opacity-90">
+                Innovative office design promoting collaboration and
+                productivity
+              </p>
+            </div>
+          </div>
+
+          <div class="portfolio-card">
+            <img
+              src="images/project3.jpg"
+              alt="Sustainable Community Center"
+              class="portfolio-image"
+            />
+            <div class="portfolio-overlay">
+              <h3 class="text-xl font-bold mb-2">
+                Sustainable Community Center
+              </h3>
+              <p class="text-sm opacity-90">
+                Green building with community-focused design
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <a href="portfolio.html" class="btn btn-secondary">
+            <i class="fas fa-images mr-2"></i>
+            View All Projects
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-secondary">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+            What Our Clients Say
+          </h2>
+          <p class="text-secondary text-lg max-w-2xl mx-auto">
+            Don't just take our word for it. Here's what our clients have to say
+            about their experience working with Spectrum Studio.
+          </p>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "Spectrum Studio transformed our vision into reality. Their
+              attention to detail and innovative design solutions exceeded our
+              expectations. The final result is absolutely stunning."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">SM</div>
+              <div>
+                <div class="font-bold text-primary">Sarah Mitchell</div>
+                <div class="text-secondary text-sm">Residential Client</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "Working with Spectrum Studio was a pleasure from start to finish.
+              They understood our business needs and created a workspace that
+              perfectly balances functionality with aesthetics."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">MJ</div>
+              <div>
+                <div class="font-bold text-primary">Michael Johnson</div>
+                <div class="text-secondary text-sm">CEO, TechCorp</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "The team at Spectrum Studio delivered an exceptional project that
+              not only meets our sustainability goals but also creates a
+              beautiful, functional space for our community."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">EL</div>
+              <div>
+                <div class="font-bold text-primary">Emily Rodriguez</div>
+                <div class="text-secondary text-sm">Community Director</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+            Our Impact
+          </h2>
+          <p class="text-secondary text-lg max-w-2xl mx-auto">
+            Numbers that reflect our commitment to excellence and the trust our
+            clients place in us.
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-number">25+</div>
+            <div class="stat-label">Team Members</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Client Satisfaction</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <div class="flex items-center space-x-3 mb-4">
+              <div
+                class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white font-bold text-sm">S</span>
+              </div>
+              <span class="text-accent font-bold text-xl">SPECTRUM</span>
+            </div>
+            <p class="text-secondary">
+              Creating innovative architectural solutions that inspire and
+              transform spaces. We blend creativity with functionality to
+              deliver exceptional results.
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="#">Residential Design</a></li>
+              <li><a href="#">Commercial Projects</a></li>
+              <li><a href="#">Sustainable Design</a></li>
+              <li><a href="#">Urban Planning</a></li>
+              <li><a href="#">Interior Design</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="team.html">Our Team</a></li>
+              <li><a href="portfolio.html">Portfolio</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Contact</h4>
+            <div class="space-y-2 text-secondary">
+              <div class="flex items-center">
+                <i class="fas fa-map-marker-alt mr-2 text-accent"></i>
+                <span>123 Design Street, City</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-phone mr-2 text-accent"></i>
+                <span>+1 (555) 123-4567</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-envelope mr-2 text-accent"></i>
+                <span>info@spectrumstudio.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 Spectrum Studio. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Redesigned Dark Mode Toggle Button (Static Sun Icon) -->
+    <button
+      id="theme-toggle"
+      aria-label="Toggle Dark Mode"
+      type="button"
+      style="
+        position: fixed;
+        bottom: 32px;
+        left: 32px;
+        z-index: 9999;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 2px solid var(--accent-color);
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(16px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 32px 0 rgba(37, 99, 235, 0.1),
+          0 1.5px 6px 0 var(--shadow-color);
+      "
+    >
+      <span
+        style="
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <!-- Static Sun SVG Icon -->
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="16" cy="16" r="8" fill="#facc15" />
+          <g stroke="#facc15" stroke-width="2" stroke-linecap="round">
+            <line x1="16" y1="4" x2="16" y2="8" />
+            <line x1="16" y1="24" x2="16" y2="28" />
+            <line x1="4" y1="16" x2="8" y2="16" />
+            <line x1="24" y1="16" x2="28" y2="16" />
+            <line x1="7.76" y1="7.76" x2="10.24" y2="10.24" />
+            <line x1="21.76" y1="21.76" x2="24.24" y2="24.24" />
+            <line x1="7.76" y1="24.24" x2="10.24" y2="21.76" />
+            <line x1="21.76" y1="10.24" x2="24.24" y2="7.76" />
+          </g>
+        </svg>
+      </span>
+    </button>
+
+    <script>
+      // Dark mode toggle functionality + enhanced navbar + mobile menu
+      document.addEventListener("DOMContentLoaded", function () {
+        const themeToggle = document.getElementById("theme-toggle");
+        const html = document.documentElement;
+
+        // Theme
+        const currentTheme = localStorage.getItem("theme") || "light";
+        html.className = currentTheme;
+
+        themeToggle.addEventListener("click", function () {
+          const currentTheme = html.className;
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          html.className = newTheme;
+          localStorage.setItem("theme", newTheme);
+        });
+
+        // Navbar scroll effects
+        const navbar = document.getElementById("navbar");
+        let scrollTimeout;
+
+        function handleScroll() {
+          const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+          if (scrollTop > 50) {
+            navbar.classList.add("scrolled");
+          } else {
+            navbar.classList.remove("scrolled");
+          }
+        }
+
+        function throttledScroll() {
+          if (!scrollTimeout) {
+            scrollTimeout = setTimeout(() => {
+              handleScroll();
+              scrollTimeout = null;
+            }, 10);
+          }
+        }
+
+        window.addEventListener("scroll", throttledScroll);
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+        const navbarNav = document.querySelector(".navbar-nav");
+
+        if (mobileMenuBtn) {
+          mobileMenuBtn.addEventListener("click", function () {
+            navbarNav.classList.toggle("show");
+            const icon = mobileMenuBtn.querySelector("i");
+            if (navbarNav.classList.contains("show")) {
+              icon.className = "fas fa-times text-xl";
+            } else {
+              icon.className = "fas fa-bars text-xl";
+            }
+          });
+        }
+
+        document.addEventListener("click", function (event) {
+          if (!navbar.contains(event.target)) {
+            navbarNav.classList.remove("show");
+            const icon = mobileMenuBtn.querySelector("i");
+            icon.className = "fas fa-bars text-xl";
+          }
+        });
+
+        // Nav active link
+        const navLinks = document.querySelectorAll(".nav-link");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            navLinks.forEach((l) => l.classList.remove("active"));
+            this.classList.add("active");
+          });
+        });
+
+        const currentPage =
+          window.location.pathname.split("/").pop() || "home.html";
+        navLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
